@@ -1,13 +1,34 @@
 import {  Link, NavLink } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 
 const Navbar = () => {
+  const {user,logoutUser}=useAuth();
+  const handlelogOut=()=>{
+    logoutUser()
+    
+  }
+
     const navInfo=<>
-        <li><a href="https://www.youtube.com/watch?v=3JtjZ8GnG6o" target="_blank" rel="noopener noreferrer" >Watch Demo</a></li>
-        <li><NavLink to='/login' className={({isActive})=> isActive? 'text-green-600 font-bold':'font-bold'}>Login</NavLink></li>
+    {
+      user?<>
+      
+      <li><NavLink to='/dashboard' className={({isActive})=> isActive? 'text-green-600 font-bold':'font-bold'}>Dashboard</NavLink></li>
+      <li><NavLink to='/coin' className={({isActive})=> isActive? 'text-green-600 font-bold':'font-bold'}>Available Coin</NavLink></li>
+      <li><NavLink to='/userprofile' className={({isActive})=> isActive? 'text-green-600 font-bold':'font-bold'}>User Profile</NavLink></li>
+      </>
+      :
+      <>
+      <li><a href="https://www.youtube.com/watch?v=3JtjZ8GnG6o" target="_blank" rel="noopener noreferrer" >Watch Demo</a></li>
+      <li><NavLink to='/login' className={({isActive})=> isActive? 'text-green-600 font-bold':'font-bold'}>Login</NavLink></li>
         <li><NavLink to='/register' className={({isActive})=> isActive? 'text-green-600 font-bold':'font-bold'}>Register</NavLink></li>
-        <li><NavLink to='/dashboard' className={({isActive})=> isActive? 'text-green-600 font-bold':'font-bold'}>Dashboard</NavLink></li>
-        <li><NavLink to='/userprofile' className={({isActive})=> isActive? 'text-green-600 font-bold':'font-bold'}>User Profile</NavLink></li>
+      </>
+    }
+        
+        
+        
+        
+       
         
     </>
     return (
@@ -29,7 +50,10 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+    {
+      user?<a onClick={handlelogOut} className="btn">LogOut</a>:<></>
+    }
+    
   </div>
 </div>
     );
