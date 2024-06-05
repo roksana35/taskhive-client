@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 
 const GoogleSignin = () => {
-    const {googleSignIn}=useAuth();
+    const { googleLogIn}=useAuth();
     const axiosPublic=useAxiosPublic();
     const navigate=useNavigate();
     const handleGoogleLogIn=()=>{
-        googleSignIn()
+        googleLogIn()
         .then(res=>{
             console.log(res.user)
             const socialuserInfo ={

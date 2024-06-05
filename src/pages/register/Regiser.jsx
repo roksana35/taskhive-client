@@ -7,7 +7,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
 const Regiser = () => {
-    const {createuser,updateProfileUser}=useAuth();
+    const {signUpUser,updateProfileUser}=useAuth();
     const navigate=useNavigate();
     const axiosPublic =useAxiosPublic();
     
@@ -21,7 +21,7 @@ const Regiser = () => {
 
       const onSubmit = (data) => {
         console.log(data)
-        createuser(data.email,data.password)
+        signUpUser(data.email,data.password)
         .then(result=>{
             const userInfo=result.user;
             console.log(userInfo)
@@ -32,7 +32,7 @@ const Regiser = () => {
                   name:data.name,
                   email:data.email,
                   role:data.role,
-                  photoURL:data.photoURL
+                  photoURL:data.photo
                 }
                 axiosPublic.post('/users',userInfo)
                 .then(res=>{

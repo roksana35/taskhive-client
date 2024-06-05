@@ -1,84 +1,73 @@
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile,  } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from "../firebase/firebase.config";
-
-
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext=createContext(null);
-const googleProvider=new GoogleAuthProvider();
-const auth =getAuth(app)
-const Authprovider = ({children}) => {
-    const [user,setUser]=useState('');
-    const [loading,setLoading]=useState(true)
+const auth = getAuth(app);
 
-    const createuser=(email,password)=>{
-        setLoading(true)
+const AuthProvider = ({children}) => {
+    const [user,setUser]=useState(null)
+    const [loading,setloading]=useState(true);
+    const axiosPublic=useAxiosPublic()
+    const googleProvider=new GoogleAuthProvider();
+
+    const signUpUser=(email,password)=>{
+        setloading(true)
         return createUserWithEmailAndPassword(auth,email,password)
     }
-
-    const loginuser=(email,password)=>{
-        setLoading(true)
+    const loginUser=(email,password)=>{
+        setloading(true)
         return signInWithEmailAndPassword(auth,email,password)
     }
-
-    const updateuser=(name,photo)=>{
-        return updateProfile(auth.currentUser,{
-            displayName:name,
-            photoURL:photo
-        })
-    }
-
-    const googleSignIn=()=>{
+    const googleLogIn=()=>{
+        setloading(true)
         return signInWithPopup(auth,googleProvider)
     }
-    const updateProfileUser=(name,photo)=>{
-        return updateProfile(auth.currentUser,{
-            displayName:name,
-            photoURL:photo
-        })
-    }
-
-    const logoutUser=()=>{
+    const logOut=()=>{
+        setloading(true)
         return signOut(auth)
     }
 
-
-
+    const updateProfileUser=(name,photo)=>{
+        return updateProfile(auth.currentUser, {
+            displayName: name, photoURL: photo
+          })
+    }
 
     useEffect(()=>{
-        const unSubscribe=onAuthStateChanged(auth, (currentuser) => {
-            // console.log(currentuser)
-            
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/auth.user
-              setUser(currentuser);
-              
-              
-              setLoading(false)
-              // ...
-            
-          });
-          return ()=>{
-            unSubscribe();
-          }
-    },[])
+        onAuthStateChanged(auth,currentUser=>{
+            setUser(currentUser)
+            if(currentUser){
+                const userInfo={email:currentUser.email}
+                axiosPublic.post('/jwt',userInfo)
+                .then(res => {
+                    if(res.data.token){
+                        localStorage.setItem('access-token',res.data.token)
+                    }
+                })
 
-    
+            }
+            else{
+                localStorage.removeItem('access-token')
 
-        const authInfo={
-            createuser,
-            updateuser,
-            user,setUser,
-            loginuser,
-            googleSignIn,
-            logoutUser,
-            loading,setLoading,
-            updateProfileUser
+            }
+            setloading(false)
+        })
+    },[axiosPublic])
 
+    const authInfo={
+        user,
+        loading,
+        signUpUser,
+        loginUser,
+        googleLogIn,
+        logOut,
+        updateProfileUser
+        
 
-
-        }
-
+        
+    }
     return (
         <AuthContext.Provider value={authInfo}>
             {children}
@@ -86,4 +75,4 @@ const Authprovider = ({children}) => {
     );
 };
 
-export default Authprovider;
+export default AuthProvider;

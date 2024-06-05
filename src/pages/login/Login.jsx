@@ -5,7 +5,7 @@ import useAuth from '../../hooks/useAuth';
 import GoogleSignin from '../../share/GoogleSignin';
 
 const Login = () => {
-  const {loginuser}=useAuth();
+  const {loginUser}=useAuth();
 
   const {
     register,
@@ -16,7 +16,7 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data)
-    loginuser(data.email,data.password)
+    loginUser(data.email,data.password)
     .then(result=>{
       const loggenUserInfo=result.user;
       console.log(loggenUserInfo)
