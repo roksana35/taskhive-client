@@ -6,6 +6,9 @@ import Banner from "../pages/Home/Banner";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Layout/Dashboard";
 import AllUser from "../pages/Dashboard/AllUser";
+import TaskList from "../pages/Dashboard/worker/TaskList";
+import TaskDetails from "../pages/Dashboard/worker/TaskDetails";
+import AddTask from "../pages/Dashboard/taskCreator/AddTask";
 
 
 const router = createBrowserRouter([
@@ -39,6 +42,18 @@ const router = createBrowserRouter([
           path:'manageuser',
           element:<AllUser></AllUser>
 
+        },
+        {
+          path:'tasklist',
+          element:<TaskList></TaskList>
+        },
+        {
+          path:'taskdetails',
+          element:<TaskDetails></TaskDetails>
+        },
+        {
+          path:'addtask',
+          element:<AddTask></AddTask>
         }
       ]
     }

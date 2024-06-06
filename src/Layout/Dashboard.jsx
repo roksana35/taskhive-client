@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../hooks/useAuth";
 import dashboardlogo from "../assets/dashboard.png.png";
 import { useEffect, useState } from "react";
+import { BsCoin } from "react-icons/bs";
 
 
 
@@ -42,7 +43,9 @@ const Dashboard = () => {
 
         hUserInfo();
     }, [user.email, axiosSecure]);
-   
+    if (!roleData) {
+        return <div>Loading...</div>; // Show loading state
+    }
     
     return (
         <div className="md:px-16">
@@ -51,15 +54,15 @@ const Dashboard = () => {
   <div className="flex-1">
     <img src={dashboardlogo} className="w-16 h-16 rounded-lg "></img>
   </div>
-  <div>
+  <div className="hover:bg-slate-400 p-2 rounded-xl">
   
-  <span>{roleData.role}</span>
+  <span>{roleData?.role}</span>
       </div>
   <div className="flex-none">
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
         <div className="indicator">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+        <BsCoin className="text-2xl" />
           <span className="badge badge-sm indicator-item">{roleData.coin}</span>
         </div>
       </div>
@@ -72,6 +75,12 @@ const Dashboard = () => {
           <img alt="Tailwind CSS Navbar component" src={roleData.photoURL} />
         </div>
       </div>
+      <button className="btn btn-ghost btn-circle">
+      <div className="indicator">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+        <span className="badge badge-xs badge-primary indicator-item"></span>
+      </div>
+    </button>
       
     </div>
   </div>
@@ -149,6 +158,12 @@ const Dashboard = () => {
                                 <NavLink to="/dashboard/tasklist">
                                     <FaList />
                                     Task List
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/taskdetails">
+                                    <FaList />
+                                    Taskdetails
                                 </NavLink>
                             </li>
                             <li>
