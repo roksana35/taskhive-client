@@ -105,7 +105,7 @@ const Regiser = () => {
  <select defaultValue="default" {...register('role', { required: true })}
                               className="select select-bordered w-full">
                                 <option disabled value="default">Select a Role</option>
-                                 <option value=" worker"> Worker</option>
+                                 <option value="worker"> Worker</option>
                                 <option value="taskcreator">TaskCreator</option> 
                             </select>
                             {errors.role && (

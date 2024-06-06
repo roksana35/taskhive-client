@@ -1,5 +1,6 @@
 import {  Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import logo from "../assets/logo.png.png";
 
 
 const Navbar = () => {
@@ -42,7 +43,10 @@ const Navbar = () => {
         {navInfo}
       </ul>
     </div>
-    <h1 className="btn btn-ghost text-xl"><Link to='/'>TaskHive</Link></h1>
+    <Link to='/' className="btn btn-ghost text-xl flex items-center">
+          <img src={logo} alt="TaskHive Logo" className="h-16 w-16 " />
+          <span>TaskHive</span>
+        </Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
