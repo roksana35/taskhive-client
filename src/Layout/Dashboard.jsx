@@ -160,12 +160,7 @@ const Dashboard = () => {
                                     Task List
                                 </NavLink>
                             </li>
-                            <li>
-                                <NavLink to="/dashboard/taskdetails">
-                                    <FaList />
-                                    Taskdetails
-                                </NavLink>
-                            </li>
+                            
                             <li>
                                 <NavLink to="/dashboard/submission">
                                     <FaList />
