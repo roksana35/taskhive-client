@@ -47,13 +47,14 @@ const router = createBrowserRouter([
           path:'tasklist',
           element:<TaskList></TaskList>
         },
-        {
-          path:'taskdetails',
-          element:<TaskDetails></TaskDetails>
-        },
+        
         {
           path:'addtask',
           element:<AddTask></AddTask>
+        },
+        {
+          path: 'task/:id',
+          element: <TaskDetails></TaskDetails>
         }
       ]
     }

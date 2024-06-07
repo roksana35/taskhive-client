@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
+import { AiTwotoneDollar } from "react-icons/ai";
+import { BsCurrencyDollar } from "react-icons/bs";
 
 
 const TaskList = () => {
@@ -17,20 +19,26 @@ const TaskList = () => {
   },[])
   console.log(tasks)
     return (
-      <div className="task-list">
+      <div className="task-list grid grid-cols-1 md:grid-cols-2 gap-4">
       {tasks.map(task => (
-        <div key={task.id} className="card w-96 bg-base-100 shadow-xl">
-          <figure className="px-10 pt-10">
-            <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" className="rounded-xl" />
-          </figure>
-          <div className="card-body items-center text-center">
-            <h2 className="card-title">{task.task_title}</h2>
-            <p>{task.task_detail.slice(0,200)}</p>
-            <div className="card-actions">
-              <Link to={`/task/${task.id}`} className="btn btn-primary">View Details</Link>
-            </div>
+        <div key={task._id} className="card w-full bg-base-100 space-y-2 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title text-3xl font-semibold ">{task.task_title}</h2>
+          <p><span  className="font-medium text-xl mr-2" >TaskCreator:</span>{task.creator_name}</p>
+          <p><span className="font-medium text-xl mr-2">Deadline:</span>{task.completion_date}</p>
+          <div className="">
+          <p><span className="font-medium text-xl mr-2">Task_quantity:</span> {task.task_quantity}</p>
+          <p className="flex items-center text-green-500  text-xl font-semibold"><BsCurrencyDollar  className="text-xl font-semibold"></BsCurrencyDollar>{task.payable_amount}</p>
+          
+          </div>
+          <div className="card-actions justify-end">
+            <Link to={`/dashboard/task/${task._id}`}>
+            <button className="btn btn-primary">View Details</button>
+            </Link>
+            
           </div>
         </div>
+      </div>
       ))}
     </div> 
     );
