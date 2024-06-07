@@ -9,6 +9,8 @@ import AllUser from "../pages/Dashboard/AllUser";
 import TaskList from "../pages/Dashboard/worker/TaskList";
 import TaskDetails from "../pages/Dashboard/worker/TaskDetails";
 import AddTask from "../pages/Dashboard/taskCreator/AddTask";
+import MySubmission from "../pages/Dashboard/worker/MySubmission";
+import WithDraw from "../pages/Dashboard/worker/WithDraw";
 
 
 const router = createBrowserRouter([
@@ -55,6 +57,14 @@ const router = createBrowserRouter([
         {
           path: 'task/:id',
           element: <TaskDetails></TaskDetails>
+        },
+        {
+          path:'submission',
+          element:<MySubmission></MySubmission>
+        },
+        {
+          path:'withdraw',
+          element:<WithDraw></WithDraw>
         }
       ]
     }

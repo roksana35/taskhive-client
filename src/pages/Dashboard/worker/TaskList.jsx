@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
-import { AiTwotoneDollar } from "react-icons/ai";
+
 import { BsCurrencyDollar } from "react-icons/bs";
 
 
