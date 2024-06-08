@@ -16,7 +16,7 @@ const Regiser = () => {
         handleSubmit,
         reset,
        
-       
+        formState: { errors },
       } = useForm();
 
       const onSubmit = (data) => {
