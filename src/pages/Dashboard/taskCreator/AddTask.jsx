@@ -53,7 +53,7 @@ const AddTask = () => {
         <div className=" min-h-screen bg-base-200">
         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             {/* title details */}
-    <div className="flex gap-4 ">
+    <div className="md:flex gap-4 ">
 
     <div className="form-control w-full">
       <label className="label">
@@ -81,7 +81,7 @@ const AddTask = () => {
     </div>
 
     {/* paylable ammount task quantity */}
-    <div className="flex gap-4 ">
+    <div className="md:flex gap-4 ">
 
     <div className="form-control w-full">
       <label className="label">
@@ -107,7 +107,7 @@ const AddTask = () => {
 
 
 {/* completion date & image url */}
-    <div className="flex gap-4 ">
+    <div className="md:flex gap-4 ">
 
     
     <div className="form-control w-full">
@@ -130,13 +130,6 @@ const AddTask = () => {
 
     </div>
 
-
-
-    
-
-
-    
-    
     <div>
         <button className="btn btn-secondary w-full">Submit</button>
     </div>

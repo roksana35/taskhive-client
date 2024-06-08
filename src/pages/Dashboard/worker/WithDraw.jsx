@@ -40,19 +40,20 @@ const WithDraw = () => {
         .catch(error => {
             console.error('Error fetching user data:', error);
         });
-    },[user.email, axiosSecure])
+    },[user.email])
 
       const onSubmit = async(data) => {
         console.log(data)
         const withdrawalData = {
             worker_email: user.email,
-            worker_name: user.name,
+            worker_name: user.displayName,
             withdraw_coin: data.coin,
             withdraw_amount: data.amount,
             payment_system: data.payment,
             account_number: data.account,
             withdraw_time: new Date().toLocaleDateString(),
         };
+        console.log(withdrawalData)
 
         // Validate if the withdrawal amount is within permissible limit
         if (parseFloat(data.amount) > parseFloat(maxWithdrawAmount)) {
@@ -72,7 +73,8 @@ const WithDraw = () => {
                   icon: 'success',
                   title: 'Data Add  successfully into withdrawCollection',
                   showConfirmButton: false,
-                  timer: 1500
+                  timer: 1500,
+                  
               });
         } 
     }

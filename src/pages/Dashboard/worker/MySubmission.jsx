@@ -18,7 +18,7 @@ const MySubmission = () => {
             setSubmission(res.data)
 
         })
-    },[])
+    },[axiosPublic,user])
 
 
     return (
