@@ -3,10 +3,11 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
 
 
 const WithDraw = () => {
-    const { user } = useAuth();
+    const { user ,  setUser} = useAuth();
     const axiosSecure=useAxiosSecure();
     
     const [maxWithdrawAmount, setMaxWithdrawAmount] = useState(0);
@@ -19,8 +20,32 @@ const WithDraw = () => {
         setValue,
         formState: { errors },
       } = useForm()
-    
-       // Watch coin input to calculate amount
+     
+    const { data: userData, refetch } = useQuery({
+      queryKey: ['user', user?.email],
+      queryFn: async () => {
+          const response = await axiosSecure.get(`/usersinfo/${user.email}`);
+          
+            const coins = response.data.coin;
+            console.log(coins,"response",response)
+          const maxAmount = coins / 20;
+          setMaxWithdrawAmount(maxAmount.toFixed(2));
+          return response.data;
+         
+          
+      },
+      
+      // onSuccess: (data) => {
+      //     const maxAmount = data.coin / 20;
+      //     console.log(data.coin)
+      //     setMaxWithdrawAmount(maxAmount.toFixed(2));
+      // }
+      
+  });
+  
+    // const maxWithdrawAmounts = userData?.coin / 20;
+
+    // Watch coin input to calculate amount
     const watchCoin = watch("coin");
 
     useEffect(() => {
@@ -30,20 +55,19 @@ const WithDraw = () => {
         }
     }, [watchCoin, setValue]);
 
-    useEffect(()=>{
-        axiosSecure.get(`/usersinfo/${user.email}`)
-        .then(response => {
-            const coins = response.data.coin;
-            const maxAmount = coins / 20;
-            setMaxWithdrawAmount(maxAmount.toFixed(2));
-        })
-        .catch(error => {
-            console.error('Error fetching user data:', error);
-        });
-    },[user.email])
+  //   useEffect(()=>{
+  //     axiosSecure.get(`/usersin/${user.email}`)
+  //     .then(response => {
+  //         const coins = response.data.coin;
+  //         const maxAmount = coins / 20;
+  //         setMaxWithdrawAmount(maxAmount.toFixed(2));
+  //     })
+  //     .catch(error => {
+  //         console.error('Error fetching user data:', error);
+  //     });
+  // },[user.email])
 
-      const onSubmit = async(data) => {
-        console.log(data)
+    const onSubmit = async(data) => {
         const withdrawalData = {
             worker_email: user.email,
             worker_name: user.displayName,
@@ -53,38 +77,33 @@ const WithDraw = () => {
             account_number: data.account,
             withdraw_time: new Date().toLocaleDateString(),
         };
-        console.log(withdrawalData)
 
-        // Validate if the withdrawal amount is within permissible limit
         if (parseFloat(data.amount) > parseFloat(maxWithdrawAmount)) {
             alert('The amount exceeds your maximum withdrawal limit.');
             return;
         }
 
         try {
-            const res = await axiosSecure.post('/withdraw', withdrawalData);
-            console.log(res.data);
-            
-            if(res.data.insertedId){
-                console.log('data add successfully')
-                reset();
-                Swal.fire({
-                  position: 'top-end',
-                  icon: 'success',
-                  title: 'Data Add  successfully into withdrawCollection',
-                  showConfirmButton: false,
-                  timer: 1500,
-                  
-              });
-        } 
-    }
-    catch (error) {
-            console.error('Error processing withdrawal:', error);
-        }
-    }
-
-
-
+          const res = await axiosSecure.post('/withdraw', withdrawalData);
+          console.log(res.data);
+          refetch()
+          if(res.data.insertedId){
+              console.log('data add successfully')
+              reset();
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Data Add  successfully into withdrawCollection',
+                showConfirmButton: false,
+                timer: 1500,
+                
+            });
+      } 
+  }
+  catch (error) {
+          console.error('Error processing withdrawal:', error);
+      }
+  }
 
     return (
         <div className=" min-h-screen bg-base-200">
@@ -156,7 +175,7 @@ const WithDraw = () => {
 
 
     <div>
-        <button className="btn btn-secondary w-full">Submit</button>
+        <button className="btn btn-secondary w-full">WithDraw</button>
     </div>
   </form>
 

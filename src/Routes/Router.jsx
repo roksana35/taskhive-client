@@ -12,6 +12,7 @@ import AddTask from "../pages/Dashboard/taskCreator/AddTask";
 import MySubmission from "../pages/Dashboard/worker/MySubmission";
 import WithDraw from "../pages/Dashboard/worker/WithDraw";
 import TakcreatorHome from "../pages/Dashboard/taskCreator/TakcreatorHome";
+import MyTask from "../pages/Dashboard/taskCreator/MyTask";
 
 
 const router = createBrowserRouter([
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
         {
           path:'taskhome',
           element:<TakcreatorHome></TakcreatorHome>
+        },
+        {
+          path:'mytask',
+          element:<MyTask></MyTask>
         }
       ]
     }

@@ -198,7 +198,7 @@ const TaskDetails = () => {
             <span className="label-text">submission_Details
             </span>
           </label>
-          <textarea {...register('submission_details')} className="textarea textarea-primary" placeholder=" submission_Details"></textarea>
+          <textarea {...register('submission_details')}  placeholder="Describe the work you did, any challenges you faced, and how you solved them, or any other relevant details." className="textarea textarea-primary" ></textarea>
           </div>
          
         

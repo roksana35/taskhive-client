@@ -19,16 +19,13 @@ const Dashboard = () => {
   const { data: isRole = [], refetch } = useQuery({
     queryKey: [user?.email, "isRole"],
     queryFn: async () => {
-      try {
-        const res = await axiosSecure.get(`/users/${user.email}`);
+        const res = await axiosSecure.get(`/user/${user.email}`);
         console.log("Users data:", res.data); // Debug statement
         return res.data;
-      } catch (error) {
-        console.error("Error fetching users:", error); // Debug statement
-        throw error;
-      }
-    },
+    }
+
   });
+
 
   useEffect(() => {
     const hUserInfo = async () => {
@@ -104,7 +101,7 @@ const Dashboard = () => {
         >
           <div className="w-64 min-h-screen mt-16 md:mt-0 bg-orange-400 p-4" onClick={(e) => e.stopPropagation()}>
             <ul className="menu">
-              {isRole.admin ? (
+              {roleData.role === 'admin' ? (
                 <>
                   <li>
                     <NavLink to="/dashboard/adminhome">
@@ -122,7 +119,7 @@ const Dashboard = () => {
                     </NavLink>
                   </li>
                 </>
-              ) : isRole.taskcreator ? (
+              ) : roleData.role === "taskcreator" ? (
                 <>
                   <li>
                     <NavLink to="/dashboard/taskhome">
@@ -150,7 +147,7 @@ const Dashboard = () => {
                     </NavLink>
                   </li>
                 </>
-              ) : isRole.worker ? (
+              ) : roleData.role === "worker" ? (
                 <>
                   <li>
                     <NavLink to="/dashboard/workerhome">
