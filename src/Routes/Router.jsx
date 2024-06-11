@@ -16,6 +16,7 @@ import MyTask from "../pages/Dashboard/taskCreator/MyTask";
 import PurcheseCoin from "../pages/Dashboard/taskCreator/PurcheseCoin";
 import Payment from "../pages/Dashboard/taskCreator/Payment";
 import ManageTask from "../pages/Dashboard/Admin/ManageTask";
+import PaymentHistory from "../pages/Dashboard/taskCreator/PaymentHistory";
 
 
 const router = createBrowserRouter([
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
         {
           path:'managetask',
           element:<ManageTask></ManageTask>
+        },
+        {
+          path:'paymentHistory',
+          element:<PaymentHistory></PaymentHistory>
         }
       ]
     }

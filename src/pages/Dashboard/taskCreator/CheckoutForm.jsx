@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const CheckoutForm = () => {
@@ -86,12 +87,22 @@ const priceInDollars = convertCoinsToDollars(parseInt(price));
                 const payment={
                   email:user.email,
                   name:user.displayName,
+                  transactionId:paymentIntent.id,
                   current_date:new Date ().toLocaleDateString('en-US', options),
                   coin_purchase:price,
                   amount:priceInDollars
                 }
                 const res =await axiosSecure.post('/payment',payment);
                 console.log('payment saved',res.data)
+                if(res.data?.paymentResult?.insertedId){
+                  Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'payment successfully added into database.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                }
             }
         }
     }
