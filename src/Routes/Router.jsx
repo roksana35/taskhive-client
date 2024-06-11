@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Login from "../pages/login/Login";
 import Regiser from "../pages/register/Regiser";
-import Banner from "../pages/Home/Banner";
+
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Layout/Dashboard";
 import AllUser from "../pages/Dashboard/AllUser";
@@ -17,6 +17,8 @@ import PurcheseCoin from "../pages/Dashboard/taskCreator/PurcheseCoin";
 import Payment from "../pages/Dashboard/taskCreator/Payment";
 import ManageTask from "../pages/Dashboard/Admin/ManageTask";
 import PaymentHistory from "../pages/Dashboard/taskCreator/PaymentHistory";
+import AdminHome from "../pages/Dashboard/Admin/AdminHome";
+import Home from "../pages/Home/Home";
 
 
 const router = createBrowserRouter([
@@ -26,7 +28,7 @@ const router = createBrowserRouter([
       children:[
         {
             path:'/',
-            element:<Banner></Banner>
+            element:<Home></Home>
 
         },
       
@@ -95,6 +97,10 @@ const router = createBrowserRouter([
         {
           path:'paymentHistory',
           element:<PaymentHistory></PaymentHistory>
+        },
+        {
+          path:'adminhome',
+          element:<AdminHome></AdminHome>
         }
       ]
     }

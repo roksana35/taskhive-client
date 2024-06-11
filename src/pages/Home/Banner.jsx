@@ -9,7 +9,7 @@ const Banner = () => {
         autoPlay
         infiniteLoop
         >
-                <div className="relative overflow-hidden h-100vh">
+                <div className="relative overflow-hidden md:h-[500px]">
                     {/* <video autoPlay loop muted className="absolute top-0 left-0 w-full h-full object-cover" src="../../assets/5849636-sd_960_540_30fps.mp4">
                     </video>
                    
