@@ -20,7 +20,7 @@ const Dashboard = () => {
     queryKey: [user?.email, "isRole"],
     queryFn: async () => {
         const res = await axiosSecure.get(`/user/${user.email}`);
-        console.log("Users data:", res.data); // Debug statement
+        // console.log("Users data:", res.data); // Debug statement
         return res.data;
     }
 
@@ -31,10 +31,10 @@ const Dashboard = () => {
     const hUserInfo = async () => {
       try {
         const res = await axiosSecure.get(`/usersinfo/${user.email}`);
-        console.log(res.data); // Debug statement
+        // console.log(res.data); // Debug statement
         setRoleData(res.data); // Update state with fetched role data
       } catch (error) {
-        console.error("Error fetching user info:", error);
+        // console.error("Error fetching user info:", error);
       }
     };
 
@@ -48,7 +48,7 @@ const Dashboard = () => {
   return (
     <div className="max-w-screen-xl md:py-5">
       {/* Navbar */}
-      <div className="navbar bg-base-200  flex justify-between items-center fixed top-0 max-w-screen-xl z-50">
+      <div className="navbar bg-base-200  flex justify-between items-center fixed top-0 max-w-screen-xl z-40">
         <div className="flex items-center">
           <img src={dashboardlogo} className="w-16 h-16 rounded-lg" alt="Dashboard Logo" />
           
@@ -94,7 +94,7 @@ const Dashboard = () => {
       <div className="flex pt-16">
         {/* Sidebar */}
         <div
-          className={`fixed inset-0 bg-gray-800 bg-opacity-75 z-40 transform ${
+          className={`fixed inset-0 bg-gray-800 bg-opacity-75 z-30 transform ${
             isNavOpen ? "translate-x-0" : "-translate-x-full"
           } md:static md:translate-x-0 transition-transform duration-300 ease-in-out md:w-64`}
           onClick={() => setIsNavOpen(false)}

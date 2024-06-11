@@ -27,7 +27,7 @@ const WithDraw = () => {
           const response = await axiosSecure.get(`/usersinfo/${user.email}`);
           
             const coins = response.data.coin;
-            console.log(coins,"response",response)
+            // console.log(coins,"response",response)
           const maxAmount = coins / 20;
           setMaxWithdrawAmount(maxAmount.toFixed(2));
           return response.data;
@@ -85,10 +85,10 @@ const WithDraw = () => {
 
         try {
           const res = await axiosSecure.post('/withdraw', withdrawalData);
-          console.log(res.data);
+          // console.log(res.data);
           refetch()
           if(res.data.insertedId){
-              console.log('data add successfully')
+              // console.log('data add successfully')
               reset();
               Swal.fire({
                 position: 'top-end',

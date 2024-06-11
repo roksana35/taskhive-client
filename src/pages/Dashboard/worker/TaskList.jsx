@@ -11,13 +11,13 @@ const TaskList = () => {
   useEffect(()=>{
     axiosPublic.get('/tasks')
     .then(res=>{
-      console.log(res.data)
+      // console.log(res.data)
       setTaks(res.data)
 
     })
 
   },[])
-  console.log(tasks)
+  // console.log(tasks)
     return (
       <div className="task-list grid grid-cols-1 md:grid-cols-2 gap-4">
       {tasks.map(task => (

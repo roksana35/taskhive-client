@@ -12,7 +12,7 @@ const GoogleSignin = () => {
     const handleGoogleLogIn=()=>{
         googleLogIn()
         .then(res=>{
-            console.log(res.user)
+            // console.log(res.user)
             const socialuserInfo ={
                 email:res.user.email,
                 name:res.user.displayName,
@@ -24,7 +24,7 @@ const GoogleSignin = () => {
             axiosPublic.post('/users',socialuserInfo)
             .then(res=>{
                 if(res.data.insertedId){
-                    console.log('user added to the database')
+                    // console.log('user added to the database')
                    
                     Swal.fire({
                       position: 'top-end',

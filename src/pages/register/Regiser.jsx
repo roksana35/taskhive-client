@@ -20,14 +20,14 @@ const Regiser = () => {
       } = useForm();
 
       const onSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
         signUpUser(data.email,data.password)
         .then(result=>{
             const userInfo=result.user;
-            console.log(userInfo)
+            // console.log(userInfo)
             updateProfileUser(data.name,data.photo)
             .then(()=>{
-                console.log('user update successfully')
+                // console.log('user update successfully')
                 const userInfo={
                   name:data.name,
                   email:data.email,
@@ -37,7 +37,7 @@ const Regiser = () => {
                 axiosPublic.post('/users',userInfo)
                 .then(res=>{
                   if(res.data.insertedId){
-                    console.log('user added to the database')
+                    // console.log('user added to the database')
                     reset();
                     Swal.fire({
                       position: 'top-end',
@@ -51,10 +51,10 @@ const Regiser = () => {
                 })
               
             }).catch((error) => {
-                console.log(error.message);
+                // console.log(error.message);
               });
         }).catch((error) => {
-            console.log(error.message);
+            // console.log(error.message);
           });
     }
     //   createuser()

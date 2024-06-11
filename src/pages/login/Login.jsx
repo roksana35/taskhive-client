@@ -19,9 +19,9 @@ const Login = () => {
     loginUser(data.email,data.password)
     .then(result=>{
       const loggenUserInfo=result.user;
-      console.log(loggenUserInfo)
+      // console.log(loggenUserInfo)
     }).catch((error) => {
-      console.log(error.message);
+      // console.log(error.message);
     });
 }
 
@@ -88,7 +88,7 @@ const Login = () => {
                       </div>
                   </form>
                   <div className='mx-auto '>
-                  <p className='my-4 text-center'>New to Car Doctors? <Link className='text-orange-600 font-bold' to="/register">Register</Link> </p>
+                  <p className='my-4 text-center'>New to TakHive? <Link className='text-orange-600 font-bold' to="/register">Register</Link> </p>
                   <GoogleSignin></GoogleSignin>
 
                   </div>

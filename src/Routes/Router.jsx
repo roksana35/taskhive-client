@@ -13,6 +13,9 @@ import MySubmission from "../pages/Dashboard/worker/MySubmission";
 import WithDraw from "../pages/Dashboard/worker/WithDraw";
 import TakcreatorHome from "../pages/Dashboard/taskCreator/TakcreatorHome";
 import MyTask from "../pages/Dashboard/taskCreator/MyTask";
+import PurcheseCoin from "../pages/Dashboard/taskCreator/PurcheseCoin";
+import Payment from "../pages/Dashboard/taskCreator/Payment";
+import ManageTask from "../pages/Dashboard/Admin/ManageTask";
 
 
 const router = createBrowserRouter([
@@ -75,6 +78,18 @@ const router = createBrowserRouter([
         {
           path:'mytask',
           element:<MyTask></MyTask>
+        },
+        {
+          path:'coin',
+          element:<PurcheseCoin></PurcheseCoin>
+        },
+        {
+          path:'payment-page/:price',
+          element:<Payment></Payment>
+        },
+        {
+          path:'managetask',
+          element:<ManageTask></ManageTask>
         }
       ]
     }

@@ -14,7 +14,7 @@ const MySubmission = () => {
     useEffect(()=>{
         axiosPublic.get(`/submission/${user?.email}`)
         .then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             setSubmission(res.data)
 
         })

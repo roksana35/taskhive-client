@@ -3,19 +3,20 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL:'https://taskhive-server-side.vercel.app'
 })
+
 const useAxiosSecure = () => {
     const {logOut}=useAuth();
     const navigate=useNavigate();
     axiosSecure.interceptors.request.use(
         function (config) {
             const token = localStorage.getItem('access-token');
-            console.log('Token in request:', token);  // Debug statement
+            // console.log('Token in request:', token);  // Debug statement
             if (token) {
                 config.headers.authorization = `Bearer ${token}`;
             } else {
-                console.log('No token found');  // Debug statement
+                // console.log('No token found');  // Debug statement
             }
             return config;
         },

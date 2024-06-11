@@ -20,7 +20,7 @@ const TaskDetails = () => {
   useEffect(()=>{
     axiosPublic.get(`/tasks/${id}`)
     .then(res=>{
-      console.log(res.data)
+      // console.log(res.data)
       setTaks(res.data);
       reset(res.data)
      
@@ -32,7 +32,7 @@ const TaskDetails = () => {
   
 
   const onSubmit = (data) => {
-    console.log(data)
+    // console.log(data)
     const submissionInfo = {
        // Spread all form data
       task_id: data.task_id,
@@ -50,7 +50,7 @@ const TaskDetails = () => {
     };
     axiosPublic.post('/submission',submissionInfo)
         .then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
             if(res.data.insertedId){
                 console.log('Data Submission Successfully')
                 reset();

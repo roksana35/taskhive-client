@@ -12,7 +12,7 @@ const AllUser = () => {
         queryFn: async () => {
             try {
                 const res = await axiosSecure.get('/users');
-                console.log('Users data:', res.data);  // Debug statement
+                // console.log('Users data:', res.data);  // Debug statement
                 return res.data;
             } catch (error) {
                 console.error('Error fetching users:', error);  // Debug statement
@@ -24,7 +24,7 @@ const AllUser = () => {
     const handleMakeAdmin=user=>{
         axiosSecure.patch(`/users/admins/${user._id}`)
         .then(res=>{
-          console.log(res.data)
+          // console.log(res.data)
           if(res.data.modifiedCount>0){
             refetch()
             Swal.fire({
