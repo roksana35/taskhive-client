@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const TaskCreatorHome = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
+    
    
     const [submission, setSubmission] = useState([]);
     const [approvedSubmissionsCount, setApprovedSubmissionsCount] = useState(0);
@@ -24,6 +25,15 @@ const TaskCreatorHome = () => {
         },
     });
 
+    const {data:userData=[],}=useQuery({
+        queryKey:['usersinfo'],
+        queryFn:async()=>{
+            const result= await axiosSecure.get(`/usersinfo/${user.email}`)
+            // console.log(result.data)
+            return result.data;
+        }
+    })
+
     // const fetchSubmissions = async () => {
     //     try {
     //         const res = await axiosSecure.get(`/submissions/${user.email}`);
@@ -33,6 +43,19 @@ const TaskCreatorHome = () => {
     //         console.error('Error fetching submissions:', error);
     //     }
     // };
+    
+
+    const {data:paymentData=[]}=useQuery({
+        queryKey:['user',user.email],
+        queryFn:async()=>{
+            const result= await axiosSecure.get(`/payment/${user.email}`)
+            console.log(result.data)
+            return result.data;
+        }
+    })
+    const totalPayments = paymentData.reduce((total, payment) => {
+        return total + (parseFloat(payment.amount) || 0);
+    }, 0);
 
     const handleApprove = async (id, worker_email, payable_amount) => {
         try {
@@ -61,7 +84,14 @@ const TaskCreatorHome = () => {
     };
     const MAX_APPROVED_SUBMISSIONS = 10;
     return (
-        <div className="overflow-x-auto">
+        <div>
+            <div className="flex justify-evenly mb-4 md:mb-8">
+                <h2 className="md:text-2xl font-semibold">Available coin:{userData.coin}</h2>
+                <h2 className="md:text-2xl font-semibold"> Total payment:{totalPayments}</h2>
+            </div>
+
+
+<div className="overflow-x-auto">
             <table className="table table-xs">
                 <thead>
                     <tr>
@@ -108,6 +138,9 @@ const TaskCreatorHome = () => {
             </table>
             <ToastContainer />
         </div>
+
+        </div>
+        
     );
 };
 
