@@ -19,6 +19,7 @@ import ManageTask from "../pages/Dashboard/Admin/ManageTask";
 import PaymentHistory from "../pages/Dashboard/taskCreator/PaymentHistory";
 import AdminHome from "../pages/Dashboard/Admin/AdminHome";
 import Home from "../pages/Home/Home";
+import WorkerHome from "../pages/Dashboard/worker/WorkerHome";
 
 
 const router = createBrowserRouter([
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
         {
           path:'adminhome',
           element:<AdminHome></AdminHome>
+        },
+        {
+          path:'workerhome',
+          element:<WorkerHome></WorkerHome>
         }
       ]
     }

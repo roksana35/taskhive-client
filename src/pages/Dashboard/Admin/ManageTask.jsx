@@ -40,7 +40,7 @@ const ManageTask = () => {
             <td>{task.creator_name}</td>
             <td>{task.task_quantity}</td>
             <td>{task.task_quantity * task.payable_amount}</td>
-            <td>{}</td>
+            <td>{task.task_quantity?task.task_quantity : 'undefiend'}</td>
             <td><RiTaskLine  className="text-2xl "/></td>
             <td><MdDeleteForever className="text-2xl"/></td>
           </tr>))

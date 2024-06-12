@@ -25,9 +25,9 @@ const Feature = () => {
   
     return (
         <div className="container mx-auto py-12">
-          <ShareSection></ShareSection>
+          <ShareSection heading={' Features Section'} subheading={'feature of website'}></ShareSection>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-4 gap-4">
         {
           feature.map(item=>(
             <div key={item.id} className="card  bg-base-100 shadow-xl">
