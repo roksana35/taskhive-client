@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+// import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
 
 import { BsCurrencyDollar } from "react-icons/bs";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 
 const TaskList = () => {
   const [tasks,setTaks]=useState([]);
-  const axiosPublic=useAxiosPublic();
+  // const axiosPublic=useAxiosPublic();
+  const axiosSecure=useAxiosSecure();
   useEffect(()=>{
-    axiosPublic.get('/tasks')
+    axiosSecure.get('/task')
     .then(res=>{
       // console.log(res.data)
       setTaks(res.data)

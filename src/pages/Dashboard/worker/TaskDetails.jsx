@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+// import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useParams } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+// import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 
 const TaskDetails = () => {
@@ -11,6 +14,8 @@ const TaskDetails = () => {
   const {user}=useAuth();
   const [tasks,setTaks]=useState([]);
   const axiosPublic=useAxiosPublic();
+  const axiosSecure=useAxiosSecure();
+  // const axiosSecure=useAxiosSecure()
   const {
     register,
     handleSubmit,
@@ -27,7 +32,8 @@ const TaskDetails = () => {
 
     })
 
-  },[id,reset]);
+  },[axiosPublic,reset]);
+  // console.log(tasks)
   const currentDate = new Date().toISOString().split('T')[0];
   
 
@@ -48,10 +54,11 @@ const TaskDetails = () => {
       task_detail: data.task_details,
       submission_detailes:data.submission_details
     };
-    axiosPublic.post('/submission',submissionInfo)
+    console.log(submissionInfo)
+    axiosSecure.post('/submission',submissionInfo)
         .then(res=>{
             // console.log(res.data)
-            if(res.data.insertedId){
+            if(res.data.insertedId>0){
                 console.log('Data Submission Successfully')
                 reset();
                 Swal.fire({
@@ -75,14 +82,14 @@ const TaskDetails = () => {
             <span className="label-text"> task_id
             </span>
           </label>
-          <input type="text" {...register('task_id')}  defaultValue={tasks._id}  className="input input-bordered w-full"  />
+          <input type="text" {...register('task_id')}  defaultValue={tasks._id} readOnly  className="input input-bordered w-full"  />
           
         </div>
         <div className="form-control w-full">
           <label className="label">
             <span className="label-text">task_title</span>
           </label>
-          <input type="text" {...register('task_title')}    placeholder="password" defaultValue={tasks.task_title} className="input input-bordered w-full"  />
+          <input type="text" {...register('task_title')}  readOnly  placeholder="password" defaultValue={tasks.task_title} className="input input-bordered w-full"  />
           
           
         </div>
@@ -97,7 +104,7 @@ const TaskDetails = () => {
           <label className="label">
             <span className="label-text"> worker_name</span>
           </label>
-          <input type="text" {...register('worker_name')}  placeholder="email"  defaultValue={user.displayName} className="input input-bordered w-full"  />
+          <input type="text" {...register('worker_name')}  placeholder="email" readOnly  defaultValue={user.displayName} className="input input-bordered w-full"  />
           
         </div>
         <div className="form-control w-full">
@@ -106,7 +113,7 @@ const TaskDetails = () => {
             </span>
           </label>
           <input type="email" {...register('worker_email')}  placeholder="worker_email
-" defaultValue={user.email} className="input input-bordered w-full"/>
+" defaultValue={user.email} readOnly className="input input-bordered w-full"/>
 
           
         </div>
@@ -122,14 +129,14 @@ const TaskDetails = () => {
           <label className="label">
             <span className="label-text">creator_name</span>
           </label>
-          <input type="text" {...register('creator_name')}   placeholder="creator_name" defaultValue={tasks.creator_name} className="input input-bordered w-full" />
+          <input type="text" {...register('creator_name')} readOnly   placeholder="creator_name" defaultValue={tasks.creator_name} className="input input-bordered w-full" />
           
         </div>
         <div className="form-control w-full">
           <label className="label">
             <span className="label-text">creator_email</span>
           </label>
-          <input type="email" {...register('creator_email')}   placeholder="creator_email" defaultValue={tasks.creator_email} className="input input-bordered w-full"  />
+          <input type="email" {...register('creator_email')} readOnly  placeholder="creator_email" defaultValue={tasks.creator_email} className="input input-bordered w-full"  />
           
           
         </div>
@@ -144,14 +151,14 @@ const TaskDetails = () => {
           <label className="label">
             <span className="label-text"> payable_amount</span>
           </label>
-          <input type="number" {...register('payable_amount')}  placeholder=" payable_amount" defaultValue={tasks. payable_amount} className="input input-bordered w-full"  />
+          <input type="number" {...register('payable_amount')} readOnly  placeholder=" payable_amount" defaultValue={tasks. payable_amount} className="input input-bordered w-full"  />
           
         </div>
         <div className="form-control w-full">
           <label className="label">
             <span className="label-text">status</span>
           </label>
-          <input type="text" {...register('status')} placeholder="status" defaultValue={'pending'} className="input input-bordered w-full"  />
+          <input type="text" {...register('status')} placeholder="status" readOnly defaultValue={'pending'} className="input input-bordered w-full"  />
           
          
         </div>
@@ -167,7 +174,7 @@ const TaskDetails = () => {
             <span className="label-text">task_img_url
             </span>
           </label>
-          <input type="text" {...register('image_url')} placeholder="task_img_url
+          <input type="text" {...register('image_url')} readOnly placeholder="task_img_url
 " defaultValue={tasks.image_url
 } className="input input-bordered w-full"  />
 </div>
@@ -175,7 +182,7 @@ const TaskDetails = () => {
           <label className="label">
             <span className="label-text"> current_date</span>
           </label>
-          <input type="date"{...register('current_date')}  placeholder=" current_date" defaultValue={currentDate} className="input input-bordered w-full" required />
+          <input type="date"{...register('current_date')} readOnly  placeholder=" current_date" defaultValue={currentDate} className="input input-bordered w-full" required />
          
          
         </div>
@@ -187,7 +194,7 @@ const TaskDetails = () => {
             <span className="label-text"> task_detail
             </span>
           </label>
-          <input type="text" {...register('task_details')} placeholder=" task_detail
+          <input type="text" {...register('task_details')} readOnly placeholder=" task_detail
 " defaultValue={tasks. task_detail
 } className="input input-bordered w-full"  />
 
@@ -198,7 +205,7 @@ const TaskDetails = () => {
             <span className="label-text">submission_Details
             </span>
           </label>
-          <textarea {...register('submission_details')}  placeholder="Describe the work you did, any challenges you faced, and how you solved them, or any other relevant details." className="textarea textarea-primary" ></textarea>
+          <textarea {...register('submission_details')} defaultValue={tasks.submission_info}  placeholder="submission_details" className="textarea textarea-primary" ></textarea>
           </div>
          
         

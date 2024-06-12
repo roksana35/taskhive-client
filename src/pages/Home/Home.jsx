@@ -1,20 +1,17 @@
 import Banner from "./Banner";
+import ExtraSeasion from "./ExtraSeasion";
 import Feature from "./Feature";
+import WorkSetion from "./WorkSetion";
 
 
 const Home = () => {
     return (
-       <div>
-        <div className="">
+     <div>
         <Banner></Banner>
-
-        </div>
-        <div className=" mt-10">
         <Feature></Feature>
-        </div>
-       
-     
-       </div>
+        <WorkSetion></WorkSetion>
+        <ExtraSeasion></ExtraSeasion>
+     </div>
            
     );
 };

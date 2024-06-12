@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { MdDeleteForever } from "react-icons/md";
+import { RiTaskLine } from "react-icons/ri";
 
 
 const ManageTask = () => {
@@ -8,7 +10,7 @@ const ManageTask = () => {
         queryKey:['tasks'],
         queryFn:async()=>{
         const res = await axiosSecure.get('/tasks')
-        console.log(res.data);
+        // console.log(res.data);
         return res.data
         }
     })
@@ -37,10 +39,10 @@ const ManageTask = () => {
             <td>{task.task_title}</td>
             <td>{task.creator_name}</td>
             <td>{task.task_quantity}</td>
-            <td></td>
+            <td>{task.task_quantity * task.payable_amount}</td>
             <td>{}</td>
-            <td></td>
-            <td></td>
+            <td><RiTaskLine  className="text-2xl "/></td>
+            <td><MdDeleteForever className="text-2xl"/></td>
           </tr>))
       }
       
