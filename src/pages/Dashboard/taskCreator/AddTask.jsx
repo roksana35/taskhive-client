@@ -6,8 +6,10 @@ import { useForm } from "react-hook-form";
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
+
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 
 const image_hosting_key=import.meta.env.VITE_IMAGEBB_HOSTING_KEY
@@ -15,6 +17,7 @@ const image_hosting_api=`https://api.imgbb.com/1/upload?key=${image_hosting_key}
 const AddTask = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const axiosPublic=useAxiosPublic();
     const [userCoins, setUserCoins] = useState(0);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
@@ -57,7 +60,11 @@ const AddTask = () => {
             return;
         }
         const imageFile = { image: data.image[0] }
-        const res = await axiosSecure.post(image_hosting_api, imageFile, {
+    //     const formData = new FormData();
+    // formData.append('image', data.image[0]);
+    // console.log(data)
+    
+        const res = await axios.post('https://api.imgbb.com/1/upload?key=a32dd9f11df9bfd0bf37720f77062a0b', imageFile, {
                       headers: {
                           'content-type': 'multipart/form-data'
                       }
@@ -173,7 +180,8 @@ const AddTask = () => {
                     <textarea {...register('submission_info', { required: true })} placeholder="Submission Info" className='p-2 border-2 border-b-slate-600 rounded-lg'></textarea>
                     {errors.submission_info && <span className='text-red-600'>This field is required</span>}
                 </div>
-                <input type="file" {...register('image_url',{required:true})} className="file-input mt-4 mb-4 flex gap-2 file-input-bordered w-full max-w-xs" />
+                <input type="file" {...register('image', { required: true })} className="file-input mt-4 mb-4 flex gap-2 file-input-bordered w-full max-w-xs" />
+                {errors.image && <span className='text-red-600'>This field is required</span>}
 
                 <div>
                     <button className="btn btn-secondary w-full">Submit</button>

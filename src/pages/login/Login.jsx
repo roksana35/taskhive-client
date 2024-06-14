@@ -57,7 +57,7 @@ const Login = () => {
                           <input type="text"  {...register("password", { required: true,minLength: 6,
                           maxLength: 20,
                           pattern:
-                  /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{6,}$/, })} name='password' placeholder="password" className="input input-bordered" />
+                  /^(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{6,}$/, })} name='password' placeholder="password" className="input input-bordered" />
                       </div>
                       {errors.password?.type === "required" && (
               <p className="text-red-600">password is required</p>
@@ -76,8 +76,7 @@ const Login = () => {
 
             {errors.password?.type === "pattern" && (
                <p className="text-red-600">
-               Password must include at least one uppercase
-               letter, one lowercase letter, one digit, and one
+               Password must include at least  one lowercase letter, one digit, and one
                special character
              </p>
            )}

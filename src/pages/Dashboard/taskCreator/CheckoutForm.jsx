@@ -15,7 +15,7 @@ const CheckoutForm = () => {
     const elements=useElements();
     const axiosSecure=useAxiosSecure();
     const {user}=useAuth();
-   console.log(price)
+  //  console.log(price)
 
    const convertCoinsToDollars = (coins) => {
     if (coins === 10) return 1;

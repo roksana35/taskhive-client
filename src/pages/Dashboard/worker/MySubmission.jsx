@@ -24,7 +24,7 @@ const MySubmission = () => {
         .then(res=>{
           if (res.data) {
             setSubmission(res.data.result || []); // Ensure it is an array
-            console.log(res.data.result)
+            // console.log(res.data.result)
             setTotalSubmissions(res.data.totalSubmissions || 0);}
          setLoading(false)
          
@@ -38,11 +38,11 @@ const MySubmission = () => {
 
     const numberOfPages = Math.ceil(totalSubmissions / itemPerPage);
   const pages = [...Array(numberOfPages).keys()];
-  console.log(pages)
+  // console.log(pages)
 
     const handleItemsPerPages=e=>{
       const value=parseInt(e.target.value);
-      console.log(value)
+      // console.log(value)
       setItemPerPage(value);
       setCurrentPage(0)
     }

@@ -22,12 +22,7 @@ const ExtraSeasion = () => {
       "photo": "https://i.ibb.co/WBhGKtG/4948.jpg",
       "quote": "Highly recommended! The process was seamless and the end result was fantastic."
     },
-    {
-      "id": "4",
-      "name": "James Smith",
-      "photo": "https://example.com/photos/james.jpg",
-      "quote": "Incredible service! The team went above and beyond to ensure I was satisfied."
-    },
+    
     {
       "id": "5",
       "name": "Emily Davis",
