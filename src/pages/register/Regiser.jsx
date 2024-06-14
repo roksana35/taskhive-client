@@ -5,8 +5,8 @@ import GoogleSignin from "../../share/GoogleSignin";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
-// const image_hosting_key=import.meta.env.VITE_IMAGEBB_HOSTING_KEY
-// const image_hosting_api=`https://api.imgbb.com/1/upload?key=${image_hosting_key}`
+const image_hosting_key=import.meta.env.VITE_IMAGEBB_HOSTING_KEY
+const image_hosting_api=`https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 const Regiser = () => {
     const {signUpUser,updateProfileUser}=useAuth();
     const navigate=useNavigate();
@@ -22,13 +22,14 @@ const Regiser = () => {
 
       const onSubmit =async (data) => {
         // console.log(data)
-        // const imageFile = { image: data.image[0] }
-        // const res = await axiosPublic.post(image_hosting_api, imageFile, {
-        //               headers: {
-        //                   'content-type': 'multipart/form-data'
-        //               }
-        //           });
-        signUpUser(data.email,data.password)
+        const imageFile = { image: data.image[0] }
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+                      headers: {
+                          'content-type': 'multipart/form-data'
+                      }
+                  });
+                  if(res.data.success){
+                    signUpUser(data.email,data.password)
         .then(result=>{
             const userInfo=result.user;
             // console.log(userInfo)
@@ -40,7 +41,7 @@ const Regiser = () => {
                   name:data.name,
                   email:data.email,
                   role:data.role,
-                  photoURL:data.photo
+                  photoURL:res.data.data.display_url
                 }
                 axiosPublic.post('/users',userInfo)
                 .then(res=>{
@@ -64,6 +65,43 @@ const Regiser = () => {
         }).catch((error) => {
             // console.log(error.message);
           });
+                  }
+        // signUpUser(data.email,data.password)
+        // .then(result=>{
+        //     const userInfo=result.user;
+        //     // console.log(userInfo)
+
+        //     updateProfileUser(data.name,data.photo)
+        //     .then(()=>{
+        //         // console.log('user update successfully')
+        //         const userInfo={
+        //           name:data.name,
+        //           email:data.email,
+        //           role:data.role,
+        //           photoURL:data.photo
+        //         }
+        //         axiosPublic.post('/users',userInfo)
+        //         .then(res=>{
+        //           if(res.data.insertedId){
+        //             // console.log('user added to the database')
+        //             reset();
+        //             Swal.fire({
+        //               position: 'top-end',
+        //               icon: 'success',
+        //               title: 'User created successfully.',
+        //               showConfirmButton: false,
+        //               timer: 1500
+        //           });
+        //           navigate('/');
+        //           }
+        //         })
+              
+        //     }).catch((error) => {
+        //         // console.log(error.message);
+        //       });
+        // }).catch((error) => {
+        //     // console.log(error.message);
+        //   });
     }
     //   createuser()
 
@@ -98,7 +136,7 @@ const Regiser = () => {
                         {errors.email && (
                 <span className="text-red-600">This field is required</span>
               )}
-                        <div className="form-control">
+                        {/* <div className="form-control">
                             <label className="label">
                                 <span className="label-text">PhotoURL</span>
                             </label>
@@ -106,7 +144,7 @@ const Regiser = () => {
                         </div>
                         {errors.photo && (
                 <span className="text-red-600">This field is required</span>
-              )}
+              )} */}
               <div className="label">
 <span className="label-text">Role</span>
 </div>
@@ -151,7 +189,7 @@ const Regiser = () => {
                  special character
                </p>
              )}
-               
+               <input type="file" {...register('image',{required:true})} className="file-input mt-4 mb-4 flex gap-2 file-input-bordered w-full max-w-xs" />
 
                         <div className="form-control mt-6">
                             <input className="btn btn-primary" type="submit" value="Register" />

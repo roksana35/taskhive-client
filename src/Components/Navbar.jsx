@@ -48,7 +48,7 @@ const { data: userData, refetch, isLoading, isError } = useQuery({
   },
   enabled: !!user?.email, // Only run the query if user email exists
 });
-console.log(userData)
+// console.log(userData)
 useEffect(() => {
   const hUserInfo = async () => {
     if (user?.email) {
@@ -63,7 +63,7 @@ useEffect(() => {
 
   hUserInfo();
 }, [user?.email, axiosSecure]);
-console.log(userData)
+// console.log(userData)
   const handlelogOut=()=>{
     logOut()
     

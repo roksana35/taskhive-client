@@ -16,7 +16,7 @@ const WorkerHome = () => {
     const {data:workerSubmission=[],refetch}=useQuery({
         queryKey:['workersubmission'],
         queryFn:async()=>{
-            const result= await axiosSecure.get('/workersubmission')
+            const result= await axiosSecure.get(`/workersubmission/${user.email}`)
             // console.log(result.data)
             return result.data;
         }

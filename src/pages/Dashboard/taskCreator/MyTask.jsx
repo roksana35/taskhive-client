@@ -221,11 +221,11 @@ const MyTask = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    console.log("Updating task with data:", selectedTask);
+    // console.log("Updating task with data:", selectedTask);
     if (selectedTask) {
       try {
         const res = await axiosSecure.patch(`/task/${selectedTask._id}`, selectedTask);
-        console.log("Update response:", res.data);
+        // console.log("Update response:", res.data);
         if (res.data.modifiedCount > 0) {
           refetch();
           Swal.fire({
@@ -245,7 +245,7 @@ const MyTask = () => {
           });
         }
       } catch (error) {
-        console.error("Error updating task:", error);
+        // console.error("Error updating task:", error);
         Swal.fire({
           position: "top-end",
           icon: "error",
@@ -270,7 +270,7 @@ const MyTask = () => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/taskdelete/${task._id}`)
           .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             if (res.data.deletedCount > 0) {
               refetch();
               Swal.fire({

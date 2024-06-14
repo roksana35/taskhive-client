@@ -1,6 +1,7 @@
 import axios from "axios";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const axiosSecure = axios.create({
     baseURL:'http://localhost:5000'
@@ -9,6 +10,15 @@ const axiosSecure = axios.create({
 const useAxiosSecure = () => {
     const {logOut}=useAuth();
     const navigate=useNavigate();
+    const [redirectToLogin, setRedirectToLogin] = useState(false);
+
+    useEffect(() => {
+        if (redirectToLogin) {
+            navigate('/login');
+        }
+    }, [redirectToLogin, navigate]);
+
+
     axiosSecure.interceptors.request.use(
         function (config) {
             const token = localStorage.getItem('access-token');

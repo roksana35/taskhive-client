@@ -54,12 +54,12 @@ const TaskDetails = () => {
       task_detail: data.task_details,
       submission_detailes:data.submission_details
     };
-    console.log(submissionInfo)
+    // console.log(submissionInfo)
     axiosSecure.post('/submission',submissionInfo)
         .then(res=>{
             // console.log(res.data)
             if(res.data.insertedId>0){
-                console.log('Data Submission Successfully')
+                // console.log('Data Submission Successfully')
                 reset();
                 Swal.fire({
                   position: 'top-end',

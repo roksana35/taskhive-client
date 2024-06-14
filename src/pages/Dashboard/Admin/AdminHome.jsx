@@ -46,7 +46,7 @@ const AdminHome = () => {
     })
 
     const handlePaymentSuccess = (id) => {
-        console.log('Attempting to delete withdrawal with id:', id); // Log the ID being sent
+        // console.log('Attempting to delete withdrawal with id:', id); // Log the ID being sent
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -60,7 +60,7 @@ const AdminHome = () => {
                 axiosSecure.delete(`/withdraw/${id}`)
                     .then(res => {
                         
-                        console.log('Delete response:', res.data); // Log the response from the server
+                        // console.log('Delete response:', res.data); // Log the response from the server
                         if (res.data.deletedCount > 0) {
                             refetch();
                             Swal.fire({
@@ -71,7 +71,7 @@ const AdminHome = () => {
                         }
                     })
                     .catch(error => {
-                        console.error('Error handling withdraws success:', error); // Log the error
+                        // console.error('Error handling withdraws success:', error); // Log the error
                     });
             }
         });

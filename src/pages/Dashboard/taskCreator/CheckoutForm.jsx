@@ -34,7 +34,7 @@ const priceInDollars = convertCoinsToDollars(parseInt(price));
     useEffect(()=>{
         axiosSecure.post('/create-payment-inten',{price:priceInCents})
         .then(res=>{
-            console.log(res.data.clientSecret)
+            // console.log(res.data.clientSecret)
             setclientSecret(res.data.clientSecret)
         })
     },[axiosSecure,priceInCents])
@@ -55,11 +55,11 @@ const priceInDollars = convertCoinsToDollars(parseInt(price));
             card,
           })
           if(error){
-            console.log('payment error',error)
+            // console.log('payment error',error)
             setError(error.message)
         }
         else{
-            console.log('paymentMethod',paymentMethod)
+            // console.log('paymentMethod',paymentMethod)
             setError('')
         }
 
@@ -75,13 +75,13 @@ const priceInDollars = convertCoinsToDollars(parseInt(price));
             }
         })
         if(confirmError){
-            console.log('confirm error')
+            // console.log('confirm error')
 
         }
         else{
-            console.log('paymentIntent',paymentIntent)
+            // console.log('paymentIntent',paymentIntent)
             if(paymentIntent.status === 'succeeded'){
-                console.log('transaction id',paymentIntent.id)
+                // console.log('transaction id',paymentIntent.id)
                 setTransactionId(paymentIntent.id)
                 const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
                 const payment={
@@ -93,7 +93,7 @@ const priceInDollars = convertCoinsToDollars(parseInt(price));
                   amount:priceInDollars
                 }
                 const res =await axiosSecure.post('/payment',payment);
-                console.log('payment saved',res.data)
+                // console.log('payment saved',res.data)
                 if(res.data?.paymentResult?.insertedId){
                   Swal.fire({
                     position: 'top-end',

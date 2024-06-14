@@ -20,7 +20,7 @@ const TaskCreatorHome = () => {
         queryKey: ['submission',user.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/submissions/${user.email}`);
-            console.log('taskcreator submission', res.data);  // Debug statement
+            // console.log('taskcreator submission', res.data);  // Debug statement
             return res.data;
         },
     });
@@ -49,11 +49,11 @@ const TaskCreatorHome = () => {
         queryKey:['user',user.email],
         queryFn:async()=>{
             const result= await axiosSecure.get(`/payment/${user.email}`)
-            console.log(result.data)
+            // console.log(result.data)
             return result.data;
         }
     })
-    const totalPayments = paymentData.reduce((total, payment) => {
+    const totalPayments = (Array.isArray(paymentData) ? paymentData : []).reduce((total, payment) => {
         return total + (parseFloat(payment.amount) || 0);
     }, 0);
 
@@ -67,7 +67,7 @@ const TaskCreatorHome = () => {
                 position: "bottom-right"
             });
         } catch (error) {
-            console.error('Error approving submission:', error);
+            // console.error('Error approving submission:', error);
         }
     };
 
@@ -79,7 +79,7 @@ const TaskCreatorHome = () => {
                 position: "bottom-right"
             });
         } catch (error) {
-            console.error('Error rejecting submission:', error);
+            // console.error('Error rejecting submission:', error);
         }
     };
     const MAX_APPROVED_SUBMISSIONS = 10;
