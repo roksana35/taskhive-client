@@ -63,7 +63,7 @@ const MySubmission = () => {
 
     return (
         <div className="overflow-x-auto">
-          <h2>{submission?.length}</h2>
+          {/* <h2>{submission?.length}</h2> */}
   <table className="table">
     {/* head */}
     <thead>

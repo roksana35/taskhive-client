@@ -35,8 +35,8 @@ const WorkerHome = () => {
     useEffect(()=>{
         axiosPublic.get(`/submission/${user?.email}`)
         .then(res=>{
-            // console.log(res.data);
-            setSubmission(res.data)
+            // console.log(res.data.totalSubmissions);
+            setSubmission(res.data.totalSubmissions)
 
         })
     },[axiosPublic,user])
@@ -49,7 +49,7 @@ const WorkerHome = () => {
     return (
         <div>
             <div className="flex justify-evenly mb-4 md:mb-8">
-                <h2 className="md:text-2xl font-semibold"> Total Submission:{submission.length}</h2>
+                <h2 className="md:text-2xl font-semibold"> Total Submission:{submission}</h2>
                 <h2 className="md:text-2xl font-semibold"> Total Earning:{totalPayableAmount}</h2>
                 <h2 className="md:text-2xl font-semibold"> Available coin:{userData.coin}</h2>
             </div>

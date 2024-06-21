@@ -9,17 +9,19 @@ import useAuth from "../hooks/useAuth";
 import dashboardlogo from "../assets/dashboard.png.png";
 import { useEffect, useState } from "react";
 import { BsCoin } from "react-icons/bs";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Dashboard = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [roleData, setRoleData] = useState(null);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const axiosPublic=useAxiosPublic();
 
   const { data: isRole = [], refetch } = useQuery({
     queryKey: [user?.email, "isRole"],
     queryFn: async () => {
-        const res = await axiosSecure.get(`/user/${user.email}`);
+        const res = await axiosSecure.get(`/user/user?email=${user.email}`);
         // console.log("Users data:", res.data); // Debug statement
         return res.data;
     }
@@ -30,7 +32,7 @@ const Dashboard = () => {
   useEffect(() => {
     const hUserInfo = async () => {
       try {
-        const res = await axiosSecure.get(`/usersinfo/${user.email}`);
+        const res = await axiosPublic.get(`/usersinfo/user?email=${user.email}`);
         // console.log(res.data); // Debug statement
         setRoleData(res.data); // Update state with fetched role data
       } catch (error) {

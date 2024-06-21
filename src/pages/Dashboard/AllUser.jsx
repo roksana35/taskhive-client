@@ -2,11 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FaTrashAlt,  } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 
 
 const AllUser = () => {
     const axiosSecure = useAxiosSecure();
+    const [selectedRoles, setSelectedRoles] = useState(null);
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
@@ -20,9 +22,26 @@ const AllUser = () => {
             }
         }
     });
+  //   const handleRoleChange = (userId, role) => {
+  //     setSelectedRoles((prevRoles) => ({
+  //         ...prevRoles,
+  //         [userId]: role,
+  //     }));
+  // };
+  const handleRoleChange = (userId, role) => {
+    setSelectedRoles((prevRoles) => ({
+        ...prevRoles,
+        [userId]: role,
+    }));
+}
+ 
      
     const handleMakeAdmin=user=>{
-        axiosSecure.patch(`/users/admins/${user._id}`)
+      const newRole = selectedRoles[user._id];
+      // console.log(newRole)
+      
+
+        axiosSecure.patch(`/users/admins/${user._id}`,{ role: newRole })
         .then(res=>{
           // console.log(res.data)
           if(res.data.modifiedCount>0){
@@ -99,7 +118,10 @@ const AllUser = () => {
             <td>{user.name}</td>
             <td>{user.email}</td>
             <td>
-              <select name="role" id="role" className="select select-bordered  max-w-xs">
+              <select name="role" id="role" 
+              defaultValue={user.role}
+              onChange={(e) => handleRoleChange(user._id, e.target.value)}
+               className="select select-bordered  max-w-xs">
               <option value="">{user.role} 
            </option>
                 <option value="admin">Admin</option>

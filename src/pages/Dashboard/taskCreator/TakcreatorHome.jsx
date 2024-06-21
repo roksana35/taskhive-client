@@ -6,10 +6,12 @@ import { FcCheckmark } from "react-icons/fc";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 
 const TaskCreatorHome = () => {
     const axiosSecure = useAxiosSecure();
+    const axiosPublic=useAxiosPublic();
     const { user } = useAuth();
     
    
@@ -28,7 +30,7 @@ const TaskCreatorHome = () => {
     const {data:userData=[],}=useQuery({
         queryKey:['usersinfo'],
         queryFn:async()=>{
-            const result= await axiosSecure.get(`/usersinfo/${user.email}`)
+            const result= await axiosPublic.get(`/usersinfo/user?email=${user.email}`)
             // console.log(result.data)
             return result.data;
         }

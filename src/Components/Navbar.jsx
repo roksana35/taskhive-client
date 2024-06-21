@@ -6,12 +6,14 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure"
 import { useEffect, useState } from "react";
 import { BsCoin } from "react-icons/bs";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 
 const Navbar = () => {
   const {user,logOut}=useAuth();
   const [roleData, setRoleData] = useState(null);
-    const axiosSecure=useAxiosSecure()
+    const axiosSecure=useAxiosSecure();
+    const axiosPublic=useAxiosPublic();
   
 
 
@@ -37,23 +39,49 @@ const Navbar = () => {
 
 //   hUserInfo();
 // }, [user.email, axiosSecure]);
-const { data: userData, refetch, isLoading, isError } = useQuery({
-  queryKey: ['user', user?.email],
-  queryFn: async () => {
-    if (user?.email) {
-      const result = await axiosSecure.get(`/user/${user.email}`);
-      return result.data;
-    }
-    return null;
-  },
-  enabled: !!user?.email, // Only run the query if user email exists
-});
-// console.log(userData)
+// const { data: userData, refetch, isLoading, isError } = useQuery({
+//   queryKey: ['user', user?.email],
+//   queryFn: async () => {
+   
+//       const result = await axiosSecure.get(`/user/${user.email}`);
+//       return result.data;
+    
+//   },
+//   // enabled: !!user?.email, // Only run the query if user email exists
+// });
+// // console.log(userData)
+// useEffect(() => {
+//   const hUserInfo = async () => {
+//     // if (user?.email) {
+//       // try {
+//         const res = await axiosSecure.get(`/usersinfo/${user.email}`);
+//         setRoleData(res.data);
+//       // } 
+//       // catch (error) {
+//       //   console.error("Error fetching user info:", error);
+//       // }
+//     // }
+//   };
+
+//   hUserInfo();
+// }, [user?.email, axiosSecure]);
+// const { data: userData, refetch, isLoading, isError } = useQuery({
+//   queryKey: ['user', user?.email],
+//   queryFn: async () => {
+//     if (user?.email) {
+//       const result = await axiosPublic.get(`/user/user?email=${user.email}`);
+//       return result.data;
+//     }
+//     return null;
+//   },
+//   enabled: !!user?.email, // Only run the query if user email exists
+// });
+
 useEffect(() => {
   const hUserInfo = async () => {
     if (user?.email) {
       try {
-        const res = await axiosSecure.get(`/usersinfo/${user.email}`);
+        const res = await axiosPublic.get(`/usersinfo/user?email=${user.email}`);
         setRoleData(res.data);
       } catch (error) {
         console.error("Error fetching user info:", error);

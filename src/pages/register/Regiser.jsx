@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import GoogleSignin from "../../share/GoogleSignin";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import axios from "axios";
 
 const image_hosting_key=import.meta.env.VITE_IMAGEBB_HOSTING_KEY
 const image_hosting_api=`https://api.imgbb.com/1/upload?key=${image_hosting_key}`
@@ -23,7 +24,7 @@ const Regiser = () => {
       const onSubmit =async (data) => {
         // console.log(data)
         const imageFile = { image: data.image[0] }
-        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+        const res = await axios.post(image_hosting_api, imageFile, {
                       headers: {
                           'content-type': 'multipart/form-data'
                       }
