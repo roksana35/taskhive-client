@@ -54,7 +54,7 @@ const Login = () => {
                           <label className="label">
                               <span className="label-text">Password</span>
                           </label>
-                          <input type="text"  {...register("password", { required: true,minLength: 6,
+                          <input type="password"  {...register("password", { required: true,minLength: 6,
                           maxLength: 20,
                           pattern:
                   /^(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{6,}$/, })} name='password' placeholder="password" className="input input-bordered" />
